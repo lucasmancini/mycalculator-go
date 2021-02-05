@@ -1,47 +1,62 @@
-package mycalculator
+package main
 
 import (
+	"bufio"
 	"fmt"
+	"os"
 	"strconv"
 	"strings"
 )
 
-func main() {
+type calc struct{}
 
-	inputString := "22+30"
-	input := strings.Split(inputString, "+")
-	fmt.Println("Final Input: ", input)
-	op1, _ := parseString(input[0])
-	op2, err := strconv.Atoi(input[1])
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	fmt.Println("Result: ", op1+op2)
-	operate("+", 5, 10)
-	operate("*", 2, 8)
-	operate("-", 20, 30)
-	operate("p", 10, 25)
+func leerEntrada() string {
+	scanner := bufio.NewScanner(os.Stdin)
+	scanner.Scan()
+	entrada := scanner.Text()
+	return entrada
 }
 
-func parseString(operator string) (int, error) {
-	result, err := strconv.Atoi(operator)
-	return result, err
-}
+func (calc) operate(entrada string, operador string) int {
+	entradaLimpia := strings.Split(entrada, operador)
+	operador1 := parsear(entradaLimpia[0])
+	operador2 := parsear(entradaLimpia[1])
 
-func operate(operation string, value1 int, value2 int) {
-	switch operation {
+	switch operador {
 	case "+":
-		fmt.Println("Add: ", value1+value2)
+		fmt.Println(operador1 + operador2)
+		return operador1 + operador2
 	case "-":
-		fmt.Println("Sub: ", value1-value2)
+		fmt.Println(operador1 - operador2)
+		return operador1 - operador2
 	case "*":
-		fmt.Println("Mult: ", value1*value2)
+		fmt.Println(operador1 * operador2)
+		return operador1 * operador2
 	case "/":
-		fmt.Println("Div: ", value1/value2)
+		fmt.Println(operador1 / operador2)
+		return operador1 / operador2
 	default:
-		fmt.Println(operation, "operation is not supported!")
-
+		fmt.Println(operador, "no soportado")
+		return 0
 	}
 
 }
+
+func parsear(entrada string) int {
+	operador, _ := strconv.Atoi(entrada)
+	return operador
+}
+
+func main() {
+	entrada := leerEntrada()
+	operador := leerEntrada()
+	c := calc{}
+	fmt.Println(c.operate(entrada, operador))
+}
+
+// Go realmente no tiene soporte para Objetos como tal, pero si para Structs. Los structs son colecciones
+// de campos tipados. Son útiles para agrupar datos y formar registros. Por ejemplo puede existir
+// el struct persona con campos nombre (string) y edad (int). En la definición de struct
+// solo ponemos sus atributos. Luego, podemos crear funciones (receiver functions) que hagan parte del struct
+// como se hizo aquí con operate que se relacionó con calc. Manejar structs nos permite organizar
+// mejor el código también.
