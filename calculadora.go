@@ -51,7 +51,7 @@ func main() {
 	entrada := LeerEntrada()
 	operador := LeerEntrada()
 	c := Calc{}
-	fmt.Println(c.operate(entrada, operador))
+	fmt.Println(c.Operate(entrada, operador))
 }
 
 // Go realmente no tiene soporte para Objetos como tal, pero si para Structs. Los structs son colecciones
