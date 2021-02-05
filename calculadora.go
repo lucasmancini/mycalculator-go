@@ -10,7 +10,7 @@ import (
 
 type calc struct{}
 
-func leerEntrada() string {
+func LeerEntrada() string {
 	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Scan()
 	entrada := scanner.Text()
@@ -48,8 +48,8 @@ func parsear(entrada string) int {
 }
 
 func main() {
-	entrada := leerEntrada()
-	operador := leerEntrada()
+	entrada := LeerEntrada()
+	operador := LeerEntrada()
 	c := calc{}
 	fmt.Println(c.operate(entrada, operador))
 }
